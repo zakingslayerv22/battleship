@@ -11,4 +11,13 @@ describe("ship's tests", () => {
     ship.hit();
     expect(ship.hits).toBe(1);
   });
+
+  test("update sunk status", () => {
+    ship.hit();
+    ship.hit();
+    ship.hit();
+    ship.hit();
+
+    expect(ship.sunk).toBe(true);
+  });
 });

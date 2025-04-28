@@ -6,6 +6,11 @@ export class Ship {
   }
 
   hit() {
-    return this.hits++;
+    this.hits++;
+    this.#updateSunkStatus();
+  }
+
+  #updateSunkStatus() {
+    this.sunk = this.length === this.hits;
   }
 }
