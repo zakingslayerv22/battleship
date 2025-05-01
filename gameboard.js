@@ -9,6 +9,10 @@ export class GameBoard {
     this.direction = "vertical";
   }
 
+  #withinBoard(length, x, y) {
+    return x + length < 10 && y + length < 10;
+  }
+
   #placeVertically(shipToPlace, x, y) {
     for (let i = x; i < x + shipToPlace.length; i++) {
       if (this.board[i][y].ship) return false;
@@ -34,10 +38,17 @@ export class GameBoard {
   }
 
   placeShip(length, x, y) {
-    const newShip = new Ship(length);
-    this.board[x][y].ship = newShip;
+    if (!this.#withinBoard) return false;
 
-    return true;
+    const newShip = new Ship(length);
+
+    if (this.direction === "vertical") {
+      return this.#placeVertically(newShip, x, y);
+    } else if (this.direction === "horizontal") {
+      return this.#placeHorizontally(newShip, x, y);
+    }
+
+    return false; //invalid direction
   }
 }
 
