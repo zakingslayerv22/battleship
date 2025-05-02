@@ -6,7 +6,12 @@ export class GameBoard {
       Array.from({ length: 10 }, () => new BoardSquare())
     );
 
-    this.direction = "vertical";
+    this.placementDirection = "vertical";
+  }
+
+  togglePlacementDirection() {
+    return (this.placementDirection =
+      this.placementDirection === "vertical" ? "horizontal" : "vertical");
   }
 
   #withinBoard(length, x, y) {
@@ -42,9 +47,9 @@ export class GameBoard {
 
     const newShip = new Ship(length);
 
-    if (this.direction === "vertical") {
+    if (this.placementDirection === "vertical") {
       return this.#placeVertically(newShip, x, y);
-    } else if (this.direction === "horizontal") {
+    } else if (this.placementDirection === "horizontal") {
       return this.#placeHorizontally(newShip, x, y);
     }
 
