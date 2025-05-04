@@ -54,4 +54,12 @@ describe("test gameboard", () => {
 
     expect(gameboard.missedAttacks).toContainEqual([1, 2]);
   });
+
+  test("report all ships sunk status", () => {
+    gameboard.placeShip(2, 1, 1);
+    gameboard.receiveAttack(1, 1);
+    gameboard.receiveAttack(2, 1);
+
+    expect(gameboard.allShipsSunk()).toBe(true);
+  });
 });
