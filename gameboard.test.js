@@ -13,7 +13,7 @@ describe("test gameboard", () => {
     expect(gameboard.board[0][0].ship).toEqual({
       length: 4,
       hits: 0,
-      sunk: false,
+      isSunk: false,
     });
   });
 
@@ -23,7 +23,7 @@ describe("test gameboard", () => {
     expect(gameboard.board[2][1].ship && gameboard.board[5][1].ship).toEqual({
       length: 4,
       hits: 0,
-      sunk: false,
+      isSunk: false,
     });
   });
 
@@ -35,7 +35,7 @@ describe("test gameboard", () => {
     expect(gameboard.board[2][1].ship && gameboard.board[2][4].ship).toEqual({
       length: 4,
       hits: 0,
-      sunk: false,
+      isSunk: false,
     });
   });
 

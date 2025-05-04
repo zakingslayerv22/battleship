@@ -1,8 +1,8 @@
 export class Ship {
-  constructor(length, hits = 0, sunk = false) {
+  constructor(length, hits = 0, isSunk = false) {
     this.length = length;
     this.hits = hits;
-    this.sunk = sunk;
+    this.isSunk = isSunk;
   }
 
   hit() {
@@ -12,6 +12,6 @@ export class Ship {
   }
 
   #updateSunkStatus() {
-    this.sunk = this.length === this.hits;
+    this.isSunk = this.length === this.hits;
   }
 }

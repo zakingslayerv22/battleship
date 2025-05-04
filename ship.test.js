@@ -18,6 +18,6 @@ describe("ship's tests", () => {
     ship.hit();
     ship.hit();
 
-    expect(ship.sunk).toBe(true);
+    expect(ship.isSunk).toBe(true);
   });
 });
