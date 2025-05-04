@@ -66,6 +66,18 @@ export class GameBoard {
     this.missedAttacks.push(squareCoordinates);
     return "Missed";
   }
+
+  receiveAttack(x, y) {
+    const boardSquare = this.board[x][y];
+
+    if (boardSquare.isHit) return false;
+
+    boardSquare.isHit = true;
+
+    if (!boardSquare.ship) return this.#handleMiss([x, y]);
+
+    return this.#handleShipHit(boardSquare);
+  }
 }
 
 class BoardSquare {

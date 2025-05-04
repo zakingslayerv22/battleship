@@ -38,4 +38,20 @@ describe("test gameboard", () => {
       sunk: false,
     });
   });
+
+  test("receive attack", () => {
+    gameboard.placeShip(4, 1, 1);
+
+    gameboard.receiveAttack(1, 1);
+
+    expect(gameboard.board[1][1].isHit).toBe(true);
+  });
+
+  test("record missed attack", () => {
+    gameboard.placeShip(4, 1, 1);
+
+    gameboard.receiveAttack(1, 2);
+
+    expect(gameboard.missedAttacks).toContainEqual([1, 2]);
+  });
 });
