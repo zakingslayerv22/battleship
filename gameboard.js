@@ -7,6 +7,8 @@ export class GameBoard {
     );
 
     this.placementDirection = "vertical";
+
+    this.missedAttacks = [];
   }
 
   togglePlacementDirection() {
@@ -54,6 +56,15 @@ export class GameBoard {
     }
 
     return false; //invalid direction
+  }
+
+  #handleShipHit(boardSquare) {
+    return boardSquare.ship.hit();
+  }
+
+  #handleMiss(squareCoordinates) {
+    this.missedAttacks.push(squareCoordinates);
+    return "Missed";
   }
 }
 
