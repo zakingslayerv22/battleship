@@ -68,6 +68,21 @@ export class GameBoard {
     return false; //invalid direction
   }
 
+  populateWithDefaultShips() {
+    this.placeShip(2, 3, 0);
+    this.placeShip(3, 3, 7);
+    this.togglePlacementDirection();
+    this.placeShip(2, 1, 0);
+    this.placeShip(3, 9, 0);
+    this.placeShip(4, 9, 4);
+    this.placeShip(2, 0, 5);
+    this.togglePlacementDirection();
+    this.placeShip(1, 7, 0);
+    this.placeShip(1, 3, 2);
+    this.placeShip(1, 7, 4);
+    this.placeShip(1, 5, 5);
+  }
+
   #handleShipHit(boardSquare) {
     return boardSquare.ship.hit();
   }

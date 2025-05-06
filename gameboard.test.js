@@ -62,4 +62,26 @@ describe("test gameboard", () => {
 
     expect(gameboard.allShipsSunk()).toBe(true);
   });
+
+  describe("populate gameboard with ships", () => {
+    beforeEach(() => {
+      gameboard.populateWithDefaultShips();
+    });
+
+    test("places correct number of ships", () => {
+      const occupiedCells = gameboard.board.flat().filter((cell) => cell.ship);
+      // total occupied cells (based on placed ships' lengths)
+      const totalExpectedLengths = 20;
+      expect(occupiedCells.length).toBe(totalExpectedLengths);
+    });
+
+    test("places ship at specific locations", () => {
+      //vertically placed
+      expect(gameboard.board[3][0] && gameboard.board[3][4]).toBeDefined();
+      //horizontally placed
+      expect(gameboard.board[1][0] && gameboard.board[1][1]).toBeDefined();
+
+      expect(gameboard.board[1][0].ship.length).toBe(2);
+    });
+  });
 });
