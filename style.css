@@ -1,0 +1,27 @@
+* {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+.board-container {
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.grid-container {
+  height: 350px;
+  width: 350px;
+  display: grid;
+  border: 1px solid black;
+  grid-template-columns: repeat(
+    10,
+    minmax(20px, 1fr)
+  ); /* Adjust column width as needed */
+}
+
+.grid-item {
+  border: 1px solid black;
+}
