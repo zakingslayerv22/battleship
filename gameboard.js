@@ -10,7 +10,7 @@ export class GameBoard {
 
     this.missedAttacks = [];
 
-    this.ships = [];
+    this.shipDataList = [];
   }
 
   togglePlacementDirection() {
@@ -18,8 +18,8 @@ export class GameBoard {
       this.placementDirection === "vertical" ? "horizontal" : "vertical");
   }
 
-  #addShip(ship) {
-    this.ships.push(ship);
+  #storeShipData(shipData) {
+    this.shipDataList.push(shipData);
   }
 
   #withinBoard(length, x, y) {
@@ -31,11 +31,13 @@ export class GameBoard {
       if (this.board[i][y].ship) return false;
     }
 
+    const coordinates = [];
     for (let i = x; i < x + shipToPlace.length; i++) {
       this.board[i][y].ship = shipToPlace;
+      coordinates.push([i, y]);
     }
 
-    this.#addShip(shipToPlace);
+    this.#storeShipData({ shipToPlace, coordinates });
 
     return true;
   }
@@ -45,11 +47,13 @@ export class GameBoard {
       if (this.board[x][i].ship) return false;
     }
 
+    const coordinates = [];
     for (let i = y; i < y + shipToPlace.length; i++) {
       this.board[x][i].ship = shipToPlace;
+      coordinates.push([x, i]);
     }
 
-    this.#addShip(shipToPlace);
+    this.#storeShipData({ shipToPlace, coordinates });
 
     return true;
   }
@@ -105,7 +109,7 @@ export class GameBoard {
   }
 
   allShipsSunk() {
-    return this.ships.every((shipData) => shipData.isSunk);
+    return this.shipDataList.every((shipData) => shipData.isSunk);
   }
 }
 
