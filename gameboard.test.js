@@ -25,6 +25,8 @@ describe("test gameboard", () => {
       hits: 0,
       isSunk: false,
     });
+
+    expect(gameboard.shipDataList[0].coordinates).toContainEqual([2, 1]);
   });
 
   test("place ship of length > 1 horizontally", () => {
@@ -37,6 +39,8 @@ describe("test gameboard", () => {
       hits: 0,
       isSunk: false,
     });
+
+    expect(gameboard.shipDataList[0].coordinates).toContainEqual([2, 1]);
   });
 
   test("receive attack", () => {
