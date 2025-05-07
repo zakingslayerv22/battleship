@@ -109,7 +109,7 @@ export class GameBoard {
   }
 
   allShipsSunk() {
-    return this.shipDataList.every((shipData) => shipData.isSunk);
+    return this.shipDataList.every((shipData) => shipData.shipToPlace.isSunk);
   }
 }
 
