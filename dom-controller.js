@@ -10,4 +10,21 @@ export class DomController {
       });
     });
   }
+
+  #getBoardContainer(player) {
+    return document.querySelector(`.${player}-board`);
+  }
+
+  #getAllShipCoordinates(playerObject) {
+    const coordinates = [];
+    playerObject.gameboard.shipDataList.forEach((ship) => {
+      coordinates.push(ship.coordinates);
+    });
+
+    return coordinates.flat();
+  }
+
+  #getCellCoordinates(cell) {
+    return [+cell.dataset.x, +cell.dataset.y];
+  }
 }
