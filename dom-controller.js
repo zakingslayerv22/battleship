@@ -27,4 +27,19 @@ export class DomController {
   #getCellCoordinates(cell) {
     return [+cell.dataset.x, +cell.dataset.y];
   }
+
+  #applyClassToMatchingCells(cellsArray, coordinatesArray, className) {
+    coordinatesArray.forEach((coordinate) => {
+      cellsArray.forEach((cell) => {
+        const cellCoordinates = this.#getCellCoordinates(cell);
+
+        if (
+          coordinate[0] === cellCoordinates[0] &&
+          coordinate[1] === cellCoordinates[1]
+        ) {
+          cell.classList.add(className);
+        }
+      });
+    });
+  }
 }
