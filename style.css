@@ -25,3 +25,7 @@
 .grid-item {
   border: 1px solid black;
 }
+
+.ship {
+  background-color: rgba(98, 73, 238, 0.397);
+}

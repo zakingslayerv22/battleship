@@ -42,4 +42,17 @@ export class DomController {
       });
     });
   }
+
+  renderShips(player, playerObject) {
+    const boardContainer = this.#getBoardContainer(player);
+    const allBoardCells = boardContainer.querySelectorAll(".grid-item");
+
+    const allShipsCoordinatesArray = this.#getAllShipCoordinates(playerObject);
+
+    this.#applyClassToMatchingCells(
+      allBoardCells,
+      allShipsCoordinatesArray,
+      "ship"
+    );
+  }
 }
