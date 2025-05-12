@@ -125,6 +125,44 @@ export class GameBoard {
     return randomAttacksArray;
   }
 
+  hasBeenAttacked(cellCoordinates, attackedCoordinatesArray) {
+    //Should consider performing the check
+    //only when the attackedCoordinatesArray
+    //is empty but that would be redundant
+    //because array.some() always
+    //returns false for an empty array.
+    return attackedCoordinatesArray.some(
+      (attackedCoordinate) =>
+        cellCoordinates[0] === attackedCoordinate[0] &&
+        cellCoordinates[1] === attackedCoordinate[1]
+    );
+  }
+
+  getNextComputerAttack() {
+    const randomAttacks = this.#generateRandomAttacksArray();
+
+    let currentElement = randomAttacks.shift();
+    let previouslyAttacked = this.hasBeenAttacked(
+      currentElement,
+      this.missedAttacks
+    );
+
+    while (previouslyAttacked && randomAttacks.length) {
+      currentElement = randomAttacks.shift();
+      previouslyAttacked = this.hasBeenAttacked(
+        currentElement,
+        this.missedAttacks
+      );
+    }
+
+    return currentElement;
+  }
+
+  launchComputerAttack(playerObject) {
+    const coordinates = this.getNextComputerAttack();
+    return playerObject.gameboard.receiveAttack(coordinates[0], coordinates[1]);
+  }
+
   allShipsSunk() {
     return this.shipDataList.every((shipData) => shipData.shipToPlace.isSunk);
   }
