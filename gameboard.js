@@ -108,6 +108,23 @@ export class GameBoard {
     return this.#handleShipHit(boardSquare);
   }
 
+  #generateRandomCoordinates() {
+    return [
+      Math.floor(Math.random() * 9) + 1,
+      Math.floor(Math.random() * 9) + 1,
+    ];
+  }
+
+  #generateRandomAttacksArray() {
+    const randomAttacksArray = [];
+
+    for (let i = 0; i <= 105; i++) {
+      randomAttacksArray.push(this.#generateRandomCoordinates());
+    }
+
+    return randomAttacksArray;
+  }
+
   allShipsSunk() {
     return this.shipDataList.every((shipData) => shipData.shipToPlace.isSunk);
   }
