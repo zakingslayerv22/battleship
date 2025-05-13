@@ -125,7 +125,7 @@ export class GameBoard {
     return randomAttacksArray;
   }
 
-  hasBeenAttacked(cellCoordinates, attackedCoordinatesArray) {
+  #hasBeenAttacked(cellCoordinates, attackedCoordinatesArray) {
     //Should consider performing the check
     //only when the attackedCoordinatesArray
     //is empty but that would be redundant
@@ -138,11 +138,11 @@ export class GameBoard {
     );
   }
 
-  getNextComputerAttack() {
+  #getNextComputerAttack() {
     const randomAttacks = this.#generateRandomAttacksArray();
 
     let currentElement = randomAttacks.shift();
-    let previouslyAttacked = this.hasBeenAttacked(
+    let previouslyAttacked = this.#hasBeenAttacked(
       currentElement,
       this.missedAttacks
     );
@@ -159,7 +159,8 @@ export class GameBoard {
   }
 
   launchComputerAttack(playerObject) {
-    const coordinates = this.getNextComputerAttack();
+    const coordinates = this.#getNextComputerAttack();
+    console.log(coordinates);
     return playerObject.gameboard.receiveAttack(coordinates[0], coordinates[1]);
   }
 

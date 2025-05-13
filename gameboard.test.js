@@ -88,4 +88,39 @@ describe("test gameboard", () => {
       expect(gameboard.board[1][0].ship.length).toBe(2);
     });
   });
+
+  describe("launchComputerAttack", () => {
+    test("launchComputerAttack calls receiveAttack with correct coordinates and returns result", () => {
+      const mockCoordinates = [3, 5];
+      const mockReceiveAttack = jest.fn().mockReturnValue("Hit!");
+
+      const playerObject = {
+        gameboard: {
+          receiveAttack: mockReceiveAttack,
+        },
+      };
+
+      class Computer {
+        getNextComputerAttack = jest.fn().mockReturnValue(mockCoordinates);
+
+        launchComputerAttack(playerObject) {
+          const coordinates = this.getNextComputerAttack();
+          return playerObject.gameboard.receiveAttack(
+            coordinates[0],
+            coordinates[1]
+          );
+        }
+      }
+
+      const computerPlayer = new Computer();
+
+      const result = computerPlayer.launchComputerAttack(playerObject);
+
+      expect(computerPlayer.getNextComputerAttack).toHaveBeenCalled();
+
+      expect(mockReceiveAttack).toHaveBeenCalledWith(3, 5);
+
+      expect(result).toBe("Hit!");
+    });
+  });
 });
