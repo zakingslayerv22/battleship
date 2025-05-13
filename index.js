@@ -10,3 +10,10 @@ const computerBoardContainer = document.querySelector(".computer-board");
 
 domController.renderBoard(humanPlayer, humanBoardContainer);
 domController.renderBoard(computerPlayer, computerBoardContainer);
+
+humanPlayer.gameboard.populateWithDefaultShips();
+computerPlayer.gameboard.populateWithDefaultShips();
+
+console.log(domController.renderShips("human", humanPlayer));
+
+console.log(computerPlayer.gameboard.launchComputerAttack(humanPlayer));
