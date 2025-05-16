@@ -28,7 +28,12 @@ export class DomController {
     return [+cell.dataset.x, +cell.dataset.y];
   }
 
-  #applyClassToMatchingCells(cellsArray, coordinatesArray, className) {
+  #applyClassToMatchingCells(
+    cellsArray,
+    coordinatesArray,
+    className,
+    text = ""
+  ) {
     coordinatesArray.forEach((coordinate) => {
       cellsArray.forEach((cell) => {
         const cellCoordinates = this.#getCellCoordinates(cell);
@@ -38,6 +43,7 @@ export class DomController {
           coordinate[1] === cellCoordinates[1]
         ) {
           cell.classList.add(className);
+          cell.textContent = text;
         }
       });
     });
@@ -53,6 +59,20 @@ export class DomController {
       allBoardCells,
       allShipsCoordinatesArray,
       "ship"
+    );
+  }
+
+  renderMissedAttacks(player, playerObject) {
+    const boardContainer = this.#getBoardContainer(player);
+    const allBoardCells = boardContainer.querySelectorAll(".grid-item");
+
+    const allMissedAttacksCoordinates = playerObject.gameboard.missedAttacks;
+
+    this.#applyClassToMatchingCells(
+      allBoardCells,
+      allMissedAttacksCoordinates,
+      "missed-cell",
+      "."
     );
   }
 }
