@@ -164,6 +164,10 @@ export class GameBoard {
     return playerObject.gameboard.receiveAttack(coordinates[0], coordinates[1]);
   }
 
+  launchHumanAttack(playerObject, coordinates) {
+    return playerObject.gameboard.receiveAttack(coordinates[0], coordinates[1]);
+  }
+
   allShipsSunk() {
     return this.shipDataList.every((shipData) => shipData.shipToPlace.isSunk);
   }
@@ -175,3 +179,5 @@ class BoardSquare {
     this.isHit = false;
   }
 }
+
+let board = new GameBoard();
