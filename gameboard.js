@@ -34,6 +34,7 @@ export class GameBoard {
     const coordinates = [];
     for (let i = x; i < x + shipToPlace.length; i++) {
       this.board[i][y].ship = shipToPlace;
+      this.board[i][y].squareCoordinates = [i, y];
       coordinates.push([i, y]);
     }
 
@@ -50,6 +51,7 @@ export class GameBoard {
     const coordinates = [];
     for (let i = y; i < y + shipToPlace.length; i++) {
       this.board[x][i].ship = shipToPlace;
+      this.board[x][i].squareCoordinates = [x, i];
       coordinates.push([x, i]);
     }
 
@@ -177,6 +179,7 @@ class BoardSquare {
   constructor() {
     this.ship = null;
     this.isHit = false;
+    this.squareCoordinates;
   }
 }
 
