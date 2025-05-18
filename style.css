@@ -35,3 +35,8 @@
   font-weight: bold;
   background-color: rgb(247, 189, 189);
 }
+
+.hit-ship {
+  border: 1px solid red;
+  background-color: rgb(247, 189, 189);
+}
