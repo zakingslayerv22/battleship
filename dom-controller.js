@@ -78,4 +78,30 @@ export class DomController {
       "."
     );
   }
+
+  getHitShipsCoordinates(playerObject) {
+    const hitShipsCoodinates = [];
+
+    playerObject.gameboard.board.forEach((row) => {
+      row.forEach((cell) => {
+        if (cell.ship && cell.isHit)
+          hitShipsCoodinates.push(cell.squareCoordinates);
+      });
+    });
+
+    return hitShipsCoodinates;
+  }
+
+  renderShipsHits(player, playerObject) {
+    const allBoardCells = this.#getBoardCells(player, ".ship");
+
+    const hitShipsCoordinatesArray = this.getHitShipsCoordinates(playerObject);
+
+    this.#applyClassToMatchingCells(
+      allBoardCells,
+      hitShipsCoordinatesArray,
+      "hit-ship",
+      "x"
+    );
+  }
 }
