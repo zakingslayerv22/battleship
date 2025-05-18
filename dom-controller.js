@@ -100,8 +100,7 @@ export class DomController {
     this.#applyClassToMatchingCells(
       allBoardCells,
       hitShipsCoordinatesArray,
-      "hit-ship",
-      "x"
+      "hit-ship"
     );
   }
 }

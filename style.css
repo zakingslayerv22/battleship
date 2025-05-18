@@ -39,4 +39,29 @@
 .hit-ship {
   border: 1px solid red;
   background-color: rgb(247, 189, 189);
+
+  width: 100%;
+  height: 100%;
+  position: relative;
+  /* These are for the "X" */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hit-ship::before,
+.hit-ship::after {
+  content: "";
+  position: absolute;
+  background-color: red;
+  width: 0.05rem;
+  height: 100%;
+}
+
+.hit-ship::before {
+  transform: rotate(45deg);
+}
+
+.hit-ship::after {
+  transform: rotate(-45deg);
 }
