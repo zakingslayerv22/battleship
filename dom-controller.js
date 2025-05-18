@@ -15,6 +15,11 @@ export class DomController {
     return document.querySelector(`.${player}-board`);
   }
 
+  #getBoardCells(player, keyword) {
+    const boardContainer = this.#getBoardContainer(player);
+    return boardContainer.querySelectorAll(keyword);
+  }
+
   #getAllShipCoordinates(playerObject) {
     const coordinates = [];
     playerObject.gameboard.shipDataList.forEach((ship) => {
@@ -50,8 +55,7 @@ export class DomController {
   }
 
   renderShips(player, playerObject) {
-    const boardContainer = this.#getBoardContainer(player);
-    const allBoardCells = boardContainer.querySelectorAll(".grid-item");
+    const allBoardCells = this.#getBoardCells(player, ".grid-item");
 
     const allShipsCoordinatesArray = this.#getAllShipCoordinates(playerObject);
 
@@ -63,8 +67,7 @@ export class DomController {
   }
 
   renderMissedAttacks(player, playerObject) {
-    const boardContainer = this.#getBoardContainer(player);
-    const allBoardCells = boardContainer.querySelectorAll(".grid-item");
+    const allBoardCells = this.#getBoardCells(player, ".grid-item");
 
     const allMissedAttacksCoordinates = playerObject.gameboard.missedAttacks;
 
