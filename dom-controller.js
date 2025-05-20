@@ -54,7 +54,7 @@ export class DomController {
     });
   }
 
-  renderShips(player, playerObject) {
+  renderShips(player, playerObject, className) {
     const allBoardCells = this.#getBoardCells(player, ".grid-item");
 
     const allShipsCoordinatesArray = this.#getAllShipCoordinates(playerObject);
@@ -62,7 +62,7 @@ export class DomController {
     this.#applyClassToMatchingCells(
       allBoardCells,
       allShipsCoordinatesArray,
-      "ship"
+      className
     );
   }
 
@@ -93,7 +93,7 @@ export class DomController {
   }
 
   renderShipsHits(player, playerObject) {
-    const allBoardCells = this.#getBoardCells(player, ".ship");
+    const allBoardCells = this.#getBoardCells(player, "[class$='ship']");
 
     const hitShipsCoordinatesArray = this.getHitShipsCoordinates(playerObject);
 
