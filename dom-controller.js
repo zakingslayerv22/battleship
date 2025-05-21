@@ -112,8 +112,29 @@ export class DomController {
     );
   }
 
+  #handleHumanBoardUpdate() {
+    const humanBoardContainer = this.#getBoardContainer("human");
+    humanBoardContainer.textContent = "";
+    this.renderBoard(this.humanPlayer, humanBoardContainer);
+    this.renderShips("human", this.humanPlayer, "human-ship");
+    this.renderMissedAttacks("human", this.humanPlayer);
+    this.renderShipsHits("human", this.humanPlayer);
+  }
+
+  #handleComputerBoardUpdate() {
+    const computerBoardContainer = this.#getBoardContainer("computer");
+    computerBoardContainer.textContent = "";
+    this.renderBoard(this.computerPlayer, computerBoardContainer);
+    this.renderShips("computer", this.computerPlayer, "computer-ship");
+    this.renderMissedAttacks("computer", this.computerPlayer);
+    this.renderShipsHits("computer", this.computerPlayer);
+  }
+
   #updateBoardDisplay = (player) => {
-    console.log(player);
+    if (player === "human") this.#handleHumanBoardUpdate();
+    if (player === "computer") this.#handleComputerBoardUpdate();
+
+    // this.renderBoard(playerObject, playerBoardContainer);
   };
 
   handleBoardClicks = (event) => {
