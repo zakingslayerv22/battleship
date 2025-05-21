@@ -1,4 +1,12 @@
+import { Game } from "./game.js";
+
 export class DomController {
+  constructor(humanPlayer, computerPlayer) {
+    this.humanPlayer = humanPlayer;
+    this.computerPlayer = computerPlayer;
+    this.game = new Game(this.humanPlayer, this.computerPlayer);
+  }
+
   renderBoard(player, boardContainer) {
     player.gameboard.board.forEach((row, rowIndex) => {
       row.forEach((col, colIndex) => {
@@ -103,4 +111,21 @@ export class DomController {
       "hit-ship"
     );
   }
+
+  #updateBoardDisplay = (player) => {
+    console.log(player);
+  };
+
+  handleBoardClicks = (event) => {
+    const selectedRow = event.target.dataset.x;
+    const selectedColumn = event.target.dataset.y;
+
+    if (!selectedRow && !selectedColumn) return;
+
+    this.game.playMove(
+      [+selectedRow, +selectedColumn],
+      this.#updateBoardDisplay
+    );
+    //then play game
+  };
 }
