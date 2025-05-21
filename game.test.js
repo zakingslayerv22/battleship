@@ -40,4 +40,31 @@ describe("test game logic", () => {
     // 4. Check update board called twice
     expect(mockUpdateBoard).toHaveBeenCalledTimes(2);
   });
+
+  test("does not proceed if human move is invalid", () => {
+    mockHumanAttack.mockReturnValue(false);
+
+    newGame.playMove([3, 5], mockUpdateBoard);
+
+    //Human attack was attempted
+    expect(mockHumanAttack).toHaveBeenCalled();
+
+    // But since result was false, nothing else happens
+    expect(mockUpdateBoard).not.toHaveBeenCalled();
+    expect(mockComputerAttack).not.toHaveBeenCalled();
+  });
+
+  test("does not proceed if computer move is invalid", () => {
+    mockHumanAttack.mockReturnValue("Hit");
+    mockComputerAttack.mockReturnValue(false);
+
+    newGame.playMove([3, 5], mockUpdateBoard);
+
+    //Computer attack was attempted
+    expect(mockComputerAttack).toHaveBeenCalled();
+
+    // But since result was false, it does not update the human board
+    expect(mockUpdateBoard).toHaveBeenCalledTimes(1);
+    expect(mockUpdateBoard).not.toHaveBeenCalledWith("human");
+  });
 });
