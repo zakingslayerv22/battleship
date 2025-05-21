@@ -18,10 +18,8 @@ export class Game {
         : this.humanPlayer;
   }
 
-  playMove(x, y, handleBoardUpdate) {
-    let currentPlayer = this.#getCurrentPlayer();
-
-    let result = currentPlayer.gameboard.launchHumanAttack(
+  playMove([x, y], handleBoardUpdate) {
+    let result = this.#getCurrentPlayer().gameboard.launchHumanAttack(
       this.computerPlayer,
       [x, y]
     );
@@ -31,9 +29,9 @@ export class Game {
 
       this.#switchPlayerTurn();
 
-      currentPlayer = this.#getCurrentPlayer();
-
-      result = currentPlayer.gameboard.launchComputerAttack(this.humanPlayer);
+      result = this.#getCurrentPlayer().gameboard.launchComputerAttack(
+        this.humanPlayer
+      );
 
       if (result) {
         handleBoardUpdate("human");
