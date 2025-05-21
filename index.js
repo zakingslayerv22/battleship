@@ -1,9 +1,11 @@
 import { DomController } from "./dom-controller.js";
 import { Human, Computer } from "./player.js";
 
-const domController = new DomController();
 const humanPlayer = new Human();
 const computerPlayer = new Computer();
+const domController = new DomController(humanPlayer, computerPlayer);
+
+const boardContainer = document.querySelector(".board-container");
 
 const humanBoardContainer = document.querySelector(".human-board");
 const computerBoardContainer = document.querySelector(".computer-board");
@@ -35,3 +37,7 @@ domController.renderMissedAttacks("computer", computerPlayer);
 //render ship hits
 domController.renderShipsHits("human", humanPlayer);
 domController.renderShipsHits("computer", computerPlayer);
+
+console.log(
+  boardContainer.addEventListener("click", domController.handleBoardClicks)
+);
