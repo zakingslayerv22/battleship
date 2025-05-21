@@ -7,8 +7,8 @@ export class DomController {
     this.game = new Game(this.humanPlayer, this.computerPlayer);
   }
 
-  renderBoard(player, boardContainer) {
-    player.gameboard.board.forEach((row, rowIndex) => {
+  renderBoard(playerObject, boardContainer) {
+    playerObject.gameboard.board.forEach((row, rowIndex) => {
       row.forEach((col, colIndex) => {
         const gridCell = document.createElement("div");
         gridCell.classList.add("grid-item");
