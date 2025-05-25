@@ -19,13 +19,25 @@ export class Game {
   }
 
   playMove([x, y], handleBoardUpdate) {
+    //initial check
+    if (this.checkAllShipsSunk(this.humanPlayer, this.computerPlayer)) {
+     return;
+    }
+
+    //play
     let result = this.#getCurrentPlayer().gameboard.launchHumanAttack(
       this.computerPlayer,
       [x, y]
     );
 
     if (result) {
+      console.log("Human played", result);
       handleBoardUpdate("computer");
+
+      //check after human attack
+      if (this.checkAllShipsSunk(this.humanPlayer, this.computerPlayer)) {
+        return;
+      }
 
       this.#switchPlayerTurn();
 
@@ -35,8 +47,20 @@ export class Game {
 
       if (result) {
         handleBoardUpdate("human");
+
+        //check after computer attack
+        if (this.checkAllShipsSunk(this.humanPlayer, this.computerPlayer)) {
+          return;
+        }
       }
     }
+  }
+
+  checkAllShipsSunk(humanPlayerObject, computerPlayerObject) {
+    return (
+      humanPlayerObject.gameboard.allShipsSunk() ||
+      computerPlayerObject.gameboard.allShipsSunk()
+    );
   }
 }
 
