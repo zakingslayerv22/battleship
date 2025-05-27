@@ -18,50 +18,42 @@ export class Game {
         : this.humanPlayer;
   }
 
-  playMove([x, y], handleBoardUpdate) {
-    //initial check
-    if (this.checkAllShipsSunk(this.humanPlayer, this.computerPlayer)) {
-     return;
-    }
+  playHumanMove([x, y], handleBoardUpdate) {
+    //check before attack
+    if(this.computerPlayer.gameboard.allShipsSunk()) return "Human Wins"
 
-    //play
-    let result = this.#getCurrentPlayer().gameboard.launchHumanAttack(
-      this.computerPlayer,
-      [x, y]
-    );
+    const result = this.humanPlayer.gameboard.launchHumanAttack(this.computerPlayer, [x, y])
 
     if (result) {
       console.log("Human played", result);
       handleBoardUpdate("computer");
 
-      //check after human attack
-      if (this.checkAllShipsSunk(this.humanPlayer, this.computerPlayer)) {
-        return;
-      }
-
-      this.#switchPlayerTurn();
-
-      result = this.#getCurrentPlayer().gameboard.launchComputerAttack(
-        this.humanPlayer
-      );
-
-      if (result) {
-        handleBoardUpdate("human");
-
-        //check after computer attack
-        if (this.checkAllShipsSunk(this.humanPlayer, this.computerPlayer)) {
-          return;
-        }
-      }
+      //check after attack
+      if(this.computerPlayer.gameboard.allShipsSunk()) return "Human Wins";
     }
+
+    return result
+
+  }
+  
+  keepComputerAttacking(handleBoardUpdate) {
+    //check before attack
+    if(this.humanPlayer.gameboard.allShipsSunk()) return "Computer Wins";
+    
+    const result = this.computerPlayer.gameboard.launchComputerAttack(this.humanPlayer);
+    handleBoardUpdate("human");
+    
+    //check after attack
+    
+    if(this.humanPlayer.gameboard.allShipsSunk()) return "Computer Wins";
+
+    if (result !== "Missed") {
+      setTimeout(() => this.keepComputerAttacking(handleBoardUpdate), 2000);
+    }
+
+    return result
   }
 
-  checkAllShipsSunk(humanPlayerObject, computerPlayerObject) {
-    return (
-      humanPlayerObject.gameboard.allShipsSunk() ||
-      computerPlayerObject.gameboard.allShipsSunk()
-    );
-  }
 }
 
 // const game = new Game();
