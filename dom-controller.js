@@ -138,15 +138,23 @@ export class DomController {
   };
 
   handleBoardClicks = (event) => {
-    const selectedRow = event.target.dataset.x;
-    const selectedColumn = event.target.dataset.y;
+    let xCoordinate = event.target.dataset.x;
+    let yCoordinate = event.target.dataset.y;
 
-    if (!selectedRow && !selectedColumn) return;
+    if (!xCoordinate && !yCoordinate) return;
 
-    this.game.playMove(
-      [+selectedRow, +selectedColumn],
-      this.#updateBoardDisplay
-    );
-    //then play game
+    const humanResult = this.game.playHumanMove([+xCoordinate, +yCoordinate], this.#updateBoardDisplay)
+    
+    if (humanResult === "Human Wins") {
+      //update the dom accordingly
+    }
+
+    if (humanResult === "Missed") {
+      const computerResult = this.game.keepComputerAttacking(this.#updateBoardDisplay);
+      if (computerResult === "Computer Wins") {
+        //update the dom accordingly
+      }
+    }
+
   };
 }
