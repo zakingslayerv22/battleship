@@ -3,7 +3,11 @@ import { Game } from "./game.js";
 export class DomController {
   constructor(humanPlayer, computerPlayer) {
     this.humanPlayer = humanPlayer;
+    this.humanBoardContainer = this.#getBoardContainer("human");
+
     this.computerPlayer = computerPlayer;
+    this.computerBoardContainer = this.#getBoardContainer("computer");
+
     this.game = new Game(this.humanPlayer, this.computerPlayer);
   }
 
@@ -130,6 +134,17 @@ export class DomController {
     this.renderShipsHits("computer", this.computerPlayer);
   }
 
+  disableHumanBoard() {
+    this.humanBoardContainer.classList.add("disabled-board");
+  }
+
+  #toggleBoardState(boardToEnable, boardToDisable) {
+    if (boardToEnable.classList.contains("disabled-board")) {
+      boardToEnable.classList.remove("disabled-board")
+      boardToDisable.classList.add("disabled-board")
+    }
+  }
+
   #updateBoardDisplay = (player) => {
     if (player === "human") this.#handleHumanBoardUpdate();
     if (player === "computer") this.#handleComputerBoardUpdate();
@@ -150,10 +165,17 @@ export class DomController {
     }
 
     if (humanResult === "Missed") {
-      const computerResult = this.game.keepComputerAttacking(this.#updateBoardDisplay);
-      if (computerResult === "Computer Wins") {
-        //update the dom accordingly
-      }
+      setTimeout(() => this.#toggleBoardState(this.humanBoardContainer, this.computerBoardContainer), 800)
+
+      setTimeout(() => {
+        const computerResult = this.game.keepComputerAttacking(this.#updateBoardDisplay);
+        if (computerResult === "Computer Wins") {
+          //update the dom accordingly
+        }
+     }, 2000);
+
+     setTimeout(() => this.#toggleBoardState(this.computerBoardContainer, this.humanBoardContainer), 6000)
+
     }
 
   };

@@ -10,13 +10,15 @@ const boardContainer = document.querySelector(".board-container");
 const humanBoardContainer = document.querySelector(".human-board");
 const computerBoardContainer = document.querySelector(".computer-board");
 
-//render boards
-domController.renderBoard(humanPlayer, humanBoardContainer);
-domController.renderBoard(computerPlayer, computerBoardContainer);
 
 //populate with ships
 humanPlayer.gameboard.populateWithDefaultShips();
 computerPlayer.gameboard.populateWithDefaultShips();
+
+//render boards
+domController.renderBoard(humanPlayer, humanBoardContainer);
+domController.renderBoard(computerPlayer, computerBoardContainer);
+
 
 //render ships
 console.log(domController.renderShips("human", humanPlayer, "human-ship"));
@@ -37,6 +39,8 @@ domController.renderMissedAttacks("computer", computerPlayer);
 //render ship hits
 domController.renderShipsHits("human", humanPlayer);
 domController.renderShipsHits("computer", computerPlayer);
+
+domController.disableHumanBoard();
 
 console.log(
   boardContainer.addEventListener("click", domController.handleBoardClicks)

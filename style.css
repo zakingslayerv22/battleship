@@ -1,6 +1,6 @@
 * {
-  margin: 0;
-  padding: 0;
+  /* margin: 0;
+  padding: 0; */
   height: 100%;
 }
 
@@ -24,6 +24,11 @@
   border: 1px solid black;
 }
 
+.disabled-board{
+  pointer-events: none;
+  opacity: 0.4;
+}
+
 .human-ship {
   background-color: rgba(98, 73, 238, 0.397);
 }
@@ -31,6 +36,7 @@
 .computer-ship {
   /* No background color */
   /* background-color: rgba(39, 219, 39, 0.397); */
+  background-color: rgba(39, 219, 39, 0.397);
 }
 
 .missed-cell {
