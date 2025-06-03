@@ -80,6 +80,27 @@ export class GameBoard {
     return false; //invalid direction
   }
 
+  #generateRandomPlacements(length) {
+    const directionsArray = ["vertical", "horizontal"];
+
+    const coordinates = this.#generateRandomCoordinatesArray();
+
+    let validPlacementsArray = [];
+
+    while(validPlacementsArray.length < 11 && coordinates.length) {
+      this.placementDirection = directionsArray[Math.floor(Math.random() * 2)];
+
+      const currentElement = coordinates.shift();
+
+      if (this.#withinBoard(length, currentElement[0], currentElement[1])) {
+        validPlacementsArray.push({currentElement, direction: this.placementDirection})
+      }
+
+    }
+
+    return validPlacementsArray;
+  }
+
   populateWithDefaultShips() {
     this.placeShip(2, 3, 0);
     this.placeShip(3, 3, 7);
@@ -123,14 +144,14 @@ export class GameBoard {
     ];
   }
 
-  #generateRandomAttacksArray() {
-    const randomAttacksArray = [];
+  #generateRandomCoordinatesArray() {
+    const randomCoordinatesArray = [];
 
     for (let i = 0; i <= 105; i++) {
-      randomAttacksArray.push(this.#generateRandomCoordinates());
+      randomCoordinatesArray.push(this.#generateRandomCoordinates());
     }
 
-    return randomAttacksArray;
+    return randomCoordinatesArray;
   }
 
   #hasBeenAttacked(cellCoordinates, attackedCoordinatesArray) {
@@ -147,7 +168,7 @@ export class GameBoard {
   }
 
   #getNextComputerAttack() {
-    const randomAttacks = this.#generateRandomAttacksArray();
+    const randomAttacks = this.#generateRandomCoordinatesArray();
 
     let currentElement = randomAttacks.shift();
     let previouslyAttacked = this.#hasBeenAttacked(
