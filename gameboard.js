@@ -107,7 +107,7 @@ export class GameBoard {
     
       while(!placementSuccess) {
 
-        if (validPlacementsArray.length === 0) 
+        if (!validPlacementsArray.length) 
           validPlacementsArray = this.#generateRandomPlacements(length);
 
         const {direction, currentElement: coordinates} = validPlacementsArray.shift();
@@ -163,7 +163,7 @@ export class GameBoard {
   #generateRandomCoordinatesArray() {
     const randomCoordinatesArray = [];
 
-    for (let i = 0; i <= 105; i++) {
+    for (let i = 0; i <= 11; i++) {
       randomCoordinatesArray.push(this.#generateRandomCoordinates());
     }
 
@@ -187,14 +187,16 @@ export class GameBoard {
     const randomAttacks = this.#generateRandomCoordinatesArray();
 
     let currentElement = randomAttacks.shift();
-    let previouslyAttacked = this.#hasBeenAttacked(
-      currentElement,
-      this.missedAttacks
-    );
+    let previouslyAttacked = true;
 
-    while (previouslyAttacked && randomAttacks.length) {
-      currentElement = randomAttacks.shift();
-      previouslyAttacked = this.hasBeenAttacked(
+    while (previouslyAttacked) {
+
+      if (!randomAttacks.length) 
+        randomAttacks = this.#generateRandomCoordinatesArray();
+      
+      let currentElement = randomAttacks.shift();
+     
+      previouslyAttacked = this.#hasBeenAttacked(
         currentElement,
         this.missedAttacks
       );
