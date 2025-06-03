@@ -101,19 +101,35 @@ export class GameBoard {
     return validPlacementsArray;
   }
 
-  populateWithDefaultShips() {
-    this.placeShip(2, 3, 0);
-    this.placeShip(3, 3, 7);
-    this.togglePlacementDirection();
-    this.placeShip(2, 1, 0);
-    this.placeShip(3, 9, 0);
-    this.placeShip(4, 9, 4);
-    this.placeShip(2, 0, 5);
-    this.togglePlacementDirection();
-    this.placeShip(1, 7, 0);
-    this.placeShip(1, 3, 2);
-    this.placeShip(1, 7, 4);
-    this.placeShip(1, 5, 5);
+  #placeShipRandomly(length) {
+    let validPlacementsArray = this.#generateRandomPlacements(length);
+    let placementSuccess = false;
+    
+      while(!placementSuccess) {
+
+        if (validPlacementsArray.length === 0) 
+          validPlacementsArray = this.#generateRandomPlacements(length);
+
+        const {direction, currentElement: coordinates} = validPlacementsArray.shift();
+        this.placementDirection = direction;
+
+      placementSuccess = this.placeShip(
+        length, 
+        coordinates[0],
+        coordinates[1]);
+      }
+
+      return placementSuccess;
+  }
+
+  populateWithRandomShips() {
+    this.#placeShipRandomly(4);
+    this.#placeShipRandomly(3);
+    this.#placeShipRandomly(2);
+    this.#placeShipRandomly(2);
+    this.#placeShipRandomly(1);
+    this.#placeShipRandomly(1);
+    this.#placeShipRandomly(1);
   }
 
   #handleShipHit(boardSquare) {
