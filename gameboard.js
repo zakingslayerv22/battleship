@@ -2,15 +2,19 @@ import { Ship } from "./ship.js";
 
 export class GameBoard {
   constructor() {
-    this.board = Array.from({ length: 10 }, () =>
-      Array.from({ length: 10 }, () => new BoardSquare())
-    );
+    this.board = this.#generateNewBoard();
 
     this.placementDirection = "vertical";
 
     this.missedAttacks = [];
 
     this.shipDataList = [];
+  }
+
+  #generateNewBoard() {
+    return Array.from({ length: 10 }, () =>
+      Array.from({ length: 10 }, () => new BoardSquare())
+    );
   }
 
   togglePlacementDirection() {
@@ -215,6 +219,18 @@ export class GameBoard {
 
   allShipsSunk() {
     return this.shipDataList.every((shipData) => shipData.shipToPlace.isSunk);
+  }
+
+  resetBoard() {
+    this.board = this.#generateNewBoard();
+
+    this.placementDirection = "vertical";
+
+    this.missedAttacks = [];
+
+    this.shipDataList = [];
+
+    this.populateWithRandomShips();
   }
 }
 
