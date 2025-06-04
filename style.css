@@ -1,13 +1,26 @@
 * {
   /* margin: 0;
   padding: 0; */
-  height: 100%;
+  /* height: auto; */
+  border: 1px solid red;
+}
+
+h1,
+.announcement-board,
+.player-title {
+  text-align: center;
+}
+
+.player-title {
+  padding-bottom: 0.7rem;
+  font-size: 1.3rem;
 }
 
 .board-container {
-  height: 100%;
+  /* height: 100%; */
   display: flex;
-  justify-content: space-around;
+  gap: 5rem;
+  justify-content: center;
   align-items: center;
 }
 
@@ -24,7 +37,7 @@
   border: 1px solid black;
 }
 
-.disabled-board{
+.disabled-board {
   pointer-events: none;
   opacity: 0.4;
 }
@@ -75,4 +88,18 @@
 
 .hit-ship::after {
   transform: rotate(-45deg);
+}
+
+.buttons-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 2rem;
+}
+
+button {
+  padding: 0.6rem;
+  font-size: 0.97rem;
+  border-radius: 5px;
 }
