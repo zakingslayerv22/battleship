@@ -8,6 +8,13 @@ export class DomController {
     this.computerPlayer = computerPlayer;
     this.computerBoardContainer = this.#getBoardContainer("computer");
 
+    this.announcementBoard = document.querySelector(".announcement-board");
+
+    this.randomizeButton = document.querySelector(".randomize-ships");
+
+    this.startGameButton = document.querySelector(".start-game");
+    this.startGameButton.disabled = true;
+
     this.game = new Game(this.humanPlayer, this.computerPlayer);
   }
 
@@ -184,6 +191,8 @@ export class DomController {
         );
         if (computerResult === "Computer Wins") {
           //update the dom accordingly
+          this.announcementBoard.textContent = "";
+          this.announcementBoard.textContent = "Computer Wins!";
         }
       }, 2000);
 
@@ -196,5 +205,15 @@ export class DomController {
         6000
       );
     }
+  };
+
+  handleRandomizeButtonClicks = () => {
+    this.startGameButton.disabled = false;
+
+    this.humanPlayer.gameboard.resetBoard();
+    this.#updateBoardDisplay("human");
+
+    this.computerPlayer.gameboard.resetBoard();
+    this.#updateBoardDisplay("computer");
   };
 }
