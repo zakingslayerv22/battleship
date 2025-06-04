@@ -25,11 +25,11 @@ export class GameBoard {
   #withinBoard(length, x, y) {
     if (!this.placementDirection) return false;
 
-    if (this.placementDirection === "vertical") 
-      return (x < 10 && y < 10 && (x + (length - 1) < 10));
+    if (this.placementDirection === "vertical")
+      return x < 10 && y < 10 && x + (length - 1) < 10;
 
-    if (this.placementDirection === "horizontal") 
-      return (x < 10 && y < 10 && (y + (length - 1) < 10));
+    if (this.placementDirection === "horizontal")
+      return x < 10 && y < 10 && y + (length - 1) < 10;
   }
 
   #placeVertically(shipToPlace, x, y) {
@@ -87,15 +87,17 @@ export class GameBoard {
 
     let validPlacementsArray = [];
 
-    while(validPlacementsArray.length < 11 && coordinates.length) {
+    while (validPlacementsArray.length < 11 && coordinates.length) {
       this.placementDirection = directionsArray[Math.floor(Math.random() * 2)];
 
       const currentElement = coordinates.shift();
 
       if (this.#withinBoard(length, currentElement[0], currentElement[1])) {
-        validPlacementsArray.push({currentElement, direction: this.placementDirection})
+        validPlacementsArray.push({
+          currentElement,
+          direction: this.placementDirection,
+        });
       }
-
     }
 
     return validPlacementsArray;
@@ -104,22 +106,19 @@ export class GameBoard {
   #placeShipRandomly(length) {
     let validPlacementsArray = this.#generateRandomPlacements(length);
     let placementSuccess = false;
-    
-      while(!placementSuccess) {
 
-        if (!validPlacementsArray.length) 
-          validPlacementsArray = this.#generateRandomPlacements(length);
+    while (!placementSuccess) {
+      if (!validPlacementsArray.length)
+        validPlacementsArray = this.#generateRandomPlacements(length);
 
-        const {direction, currentElement: coordinates} = validPlacementsArray.shift();
-        this.placementDirection = direction;
+      const { direction, currentElement: coordinates } =
+        validPlacementsArray.shift();
+      this.placementDirection = direction;
 
-      placementSuccess = this.placeShip(
-        length, 
-        coordinates[0],
-        coordinates[1]);
-      }
+      placementSuccess = this.placeShip(length, coordinates[0], coordinates[1]);
+    }
 
-      return placementSuccess;
+    return placementSuccess;
   }
 
   populateWithRandomShips() {
@@ -163,7 +162,7 @@ export class GameBoard {
   #generateRandomCoordinatesArray() {
     const randomCoordinatesArray = [];
 
-    for (let i = 0; i <= 11; i++) {
+    for (let i = 0; i <= 10; i++) {
       randomCoordinatesArray.push(this.#generateRandomCoordinates());
     }
 
@@ -190,12 +189,11 @@ export class GameBoard {
     let previouslyAttacked = true;
 
     while (previouslyAttacked) {
-
-      if (!randomAttacks.length) 
+      if (!randomAttacks.length)
         randomAttacks = this.#generateRandomCoordinatesArray();
-      
+
       let currentElement = randomAttacks.shift();
-     
+
       previouslyAttacked = this.#hasBeenAttacked(
         currentElement,
         this.missedAttacks
@@ -229,3 +227,4 @@ class BoardSquare {
 }
 
 let board = new GameBoard();
+board.resetBoard();

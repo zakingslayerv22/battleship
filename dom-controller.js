@@ -140,8 +140,8 @@ export class DomController {
 
   #toggleBoardState(boardToEnable, boardToDisable) {
     if (boardToEnable.classList.contains("disabled-board")) {
-      boardToEnable.classList.remove("disabled-board")
-      boardToDisable.classList.add("disabled-board")
+      boardToEnable.classList.remove("disabled-board");
+      boardToDisable.classList.add("disabled-board");
     }
   }
 
@@ -158,25 +158,43 @@ export class DomController {
 
     if (!xCoordinate && !yCoordinate) return;
 
-    const humanResult = this.game.playHumanMove([+xCoordinate, +yCoordinate], this.#updateBoardDisplay)
-    
+    const humanResult = this.game.playHumanMove(
+      [+xCoordinate, +yCoordinate],
+      this.#updateBoardDisplay
+    );
+
     if (humanResult === "Human Wins") {
-      //update the dom accordingly
+      this.announcementBoard.textContent = "";
+      this.announcementBoard.textContent = "Human Wins!";
     }
 
     if (humanResult === "Missed") {
-      setTimeout(() => this.#toggleBoardState(this.humanBoardContainer, this.computerBoardContainer), 800)
+      setTimeout(
+        () =>
+          this.#toggleBoardState(
+            this.humanBoardContainer,
+            this.computerBoardContainer
+          ),
+        800
+      );
 
       setTimeout(() => {
-        const computerResult = this.game.keepComputerAttacking(this.#updateBoardDisplay);
+        const computerResult = this.game.keepComputerAttacking(
+          this.#updateBoardDisplay
+        );
         if (computerResult === "Computer Wins") {
           //update the dom accordingly
         }
-     }, 2000);
+      }, 2000);
 
-     setTimeout(() => this.#toggleBoardState(this.computerBoardContainer, this.humanBoardContainer), 6000)
-
+      setTimeout(
+        () =>
+          this.#toggleBoardState(
+            this.computerBoardContainer,
+            this.humanBoardContainer
+          ),
+        6000
+      );
     }
-
   };
 }
