@@ -5,6 +5,8 @@ export class DomController {
     this.humanPlayer = humanPlayer;
     this.humanBoardContainer = this.#getBoardContainer("human");
 
+    this.boardContainer = document.querySelector(".board-container");
+
     this.computerPlayer = computerPlayer;
     this.computerBoardContainer = this.#getBoardContainer("computer");
 
@@ -13,7 +15,8 @@ export class DomController {
     this.randomizeButton = document.querySelector(".randomize-ships");
 
     this.startGameButton = document.querySelector(".start-game");
-    this.startGameButton.disabled = true;
+
+    this.resetGameButton = document.querySelector(".reset-game");
 
     this.game = new Game(this.humanPlayer, this.computerPlayer);
   }
@@ -207,13 +210,34 @@ export class DomController {
     }
   };
 
-  handleRandomizeButtonClicks = () => {
-    this.startGameButton.disabled = false;
-
+  resetGame() {
     this.humanPlayer.gameboard.resetBoard();
     this.#updateBoardDisplay("human");
 
     this.computerPlayer.gameboard.resetBoard();
     this.#updateBoardDisplay("computer");
+
+    this.boardContainer.removeEventListener("click", this.handleBoardClicks);
+
+    this.resetGameButton.disabled = true;
+
+    if (this.humanBoardContainer.classList.contains("disabled-board")) {
+      this.humanBoardContainer.classList.remove("disabled-board");
+    } else {
+      this.computerBoardContainer.classList.remove("disabled-board");
+    }
+  }
+
+  handleRandomizeButtonClicks = () => {
+    this.resetGame();
+    this.startGameButton.disabled = false;
+  };
+
+  handleResetButtonClicks = (event) => {
+    this.resetGame();
+
+    event.target.disabled = true;
+    this.randomizeButton.disabled = false;
+    this.startGameButton.disabled = false;
   };
 }
