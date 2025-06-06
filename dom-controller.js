@@ -193,7 +193,7 @@ export class DomController {
             this.humanBoardContainer,
             this.computerBoardContainer
           ),
-        800
+        100
       );
 
       setTimeout(() => {
