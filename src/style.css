@@ -1,0 +1,103 @@
+h1,
+.announcement-board,
+.player-title {
+  text-align: center;
+}
+
+.announcement-board {
+  padding-bottom: 1rem;
+  font-size: 1rem;
+}
+
+.player-title {
+  padding-bottom: 0.7rem;
+  font-size: 1.3rem;
+}
+
+.board-container {
+  /* height: 100%; */
+  display: flex;
+  gap: 5rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.grid-container {
+  height: 350px;
+  width: 350px;
+  display: grid;
+  border: 1px solid black;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+}
+
+.grid-item {
+  border: 1px solid black;
+}
+
+.disabled-board {
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+.human-ship {
+  background-color: rgba(98, 73, 238, 0.397);
+}
+
+.computer-ship {
+  /* No background color */
+  /* background-color: rgba(39, 219, 39, 0.397); */
+  background-color: rgba(39, 219, 39, 0.397);
+}
+
+.missed-cell {
+  display: grid;
+  place-items: center;
+  font-size: 1rem;
+  font-weight: bold;
+  background-color: rgb(247, 189, 189);
+}
+
+.hit-ship {
+  border: 1px solid red;
+  background-color: rgb(247, 189, 189);
+
+  width: 100%;
+  height: 100%;
+  position: relative;
+  /* These are for the "X" */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hit-ship::before,
+.hit-ship::after {
+  content: "";
+  position: absolute;
+  background-color: red;
+  width: 0.05rem;
+  height: 100%;
+}
+
+.hit-ship::before {
+  transform: rotate(45deg);
+}
+
+.hit-ship::after {
+  transform: rotate(-45deg);
+}
+
+.buttons-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 2rem;
+}
+
+button {
+  padding: 0.6rem;
+  font-size: 0.97rem;
+  border-radius: 5px;
+}
