@@ -44,12 +44,6 @@ h1,
   background-color: rgba(98, 73, 238, 0.397);
 }
 
-.computer-ship {
-  /* No background color */
-  /* background-color: rgba(39, 219, 39, 0.397); */
-  background-color: rgba(39, 219, 39, 0.397);
-}
-
 .missed-cell {
   display: grid;
   place-items: center;
