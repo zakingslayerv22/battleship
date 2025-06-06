@@ -10,7 +10,11 @@ export class DomController {
     this.computerPlayer = computerPlayer;
     this.computerBoardContainer = this.#getBoardContainer("computer");
 
+    this.announcementText =
+      "Randomize ships' placements and/or click the Start Game button to start new game.";
+
     this.announcementBoard = document.querySelector(".announcement-board");
+    this.announcementBoard.textContent = this.announcementText;
 
     this.randomizeButton = document.querySelector(".randomize-ships");
     this.randomizeButton.addEventListener(
@@ -135,18 +139,17 @@ export class DomController {
   }
 
   #handleHumanBoardUpdate() {
-    const humanBoardContainer = this.#getBoardContainer("human");
-    humanBoardContainer.textContent = "";
-    this.#renderBoard(this.humanPlayer, humanBoardContainer);
+    this.humanBoardContainer.textContent = "";
+    this.#renderBoard(this.humanPlayer, this.humanBoardContainer);
     this.#renderShips("human", this.humanPlayer, "human-ship");
     this.#renderMissedAttacks("human", this.humanPlayer);
     this.#renderShipsHits("human", this.humanPlayer);
   }
 
   #handleComputerBoardUpdate() {
-    const computerBoardContainer = this.#getBoardContainer("computer");
-    computerBoardContainer.textContent = "";
-    this.#renderBoard(this.computerPlayer, computerBoardContainer);
+    // const computerBoardContainer = this.#getBoardContainer("computer");
+    this.computerBoardContainer.textContent = "";
+    this.#renderBoard(this.computerPlayer, this.computerBoardContainer);
     this.#renderShips("computer", this.computerPlayer, "computer-ship");
     this.#renderMissedAttacks("computer", this.computerPlayer);
     this.#renderShipsHits("computer", this.computerPlayer);
@@ -179,7 +182,8 @@ export class DomController {
 
     if (humanResult === "Human Wins") {
       this.announcementBoard.textContent = "";
-      this.announcementBoard.textContent = "Human Wins!";
+      this.announcementBoard.textContent =
+        "Human Wins!  Click on the Reset Game button to start a new game.";
     }
 
     if (humanResult === "Missed") {
@@ -215,6 +219,9 @@ export class DomController {
   };
 
   #startGame() {
+    this.announcementBoard.textContent = "";
+    this.announcementBoard.textContent = "Game in progress...";
+
     this.humanBoardContainer.classList.add("disabled-board");
     this.boardContainer.addEventListener("click", this.#handleBoardClicks);
 
@@ -225,6 +232,9 @@ export class DomController {
   }
 
   initializeGame() {
+    this.announcementBoard.textContent = "";
+    this.announcementBoard.textContent = this.announcementText;
+
     this.humanPlayer.gameboard.resetBoard();
     this.#updateBoardDisplay("human");
 
