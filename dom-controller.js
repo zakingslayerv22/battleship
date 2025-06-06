@@ -13,8 +13,16 @@ export class DomController {
     this.announcementBoard = document.querySelector(".announcement-board");
 
     this.randomizeButton = document.querySelector(".randomize-ships");
+    this.randomizeButton.addEventListener(
+      "click",
+      this.handleRandomizeButtonClicks
+    );
 
     this.startGameButton = document.querySelector(".start-game");
+    this.startGameButton.addEventListener(
+      "click",
+      this.handleStartButtonClicks
+    );
 
     this.resetGameButton = document.querySelector(".reset-game");
 
