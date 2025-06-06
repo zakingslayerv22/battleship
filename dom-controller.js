@@ -210,6 +210,16 @@ export class DomController {
     }
   };
 
+  startGame() {
+    this.humanBoardContainer.classList.add("disabled-board");
+    this.boardContainer.addEventListener("click", this.handleBoardClicks);
+
+    this.resetGameButton.addEventListener(
+      "click",
+      this.handleResetButtonClicks
+    );
+  }
+
   resetGame() {
     this.humanPlayer.gameboard.resetBoard();
     this.#updateBoardDisplay("human");
@@ -231,6 +241,14 @@ export class DomController {
   handleRandomizeButtonClicks = () => {
     this.resetGame();
     this.startGameButton.disabled = false;
+  };
+
+  handleStartButtonClicks = (event) => {
+    this.randomizeButton.disabled = true;
+    event.target.disabled = true;
+    this.resetGameButton.disabled = false;
+
+    this.startGame();
   };
 
   handleResetButtonClicks = (event) => {
