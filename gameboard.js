@@ -70,7 +70,7 @@ export class GameBoard {
     return true;
   }
 
-  placeShip(length, x, y) {
+  #placeShip(length, x, y) {
     if (!this.#withinBoard(length, x, y)) return false;
 
     const newShip = new Ship(length);
@@ -119,13 +119,17 @@ export class GameBoard {
         validPlacementsArray.shift();
       this.placementDirection = direction;
 
-      placementSuccess = this.placeShip(length, coordinates[0], coordinates[1]);
+      placementSuccess = this.#placeShip(
+        length,
+        coordinates[0],
+        coordinates[1]
+      );
     }
 
     return placementSuccess;
   }
 
-  populateWithRandomShips() {
+  #populateWithRandomShips() {
     this.#placeShipRandomly(4);
     this.#placeShipRandomly(3);
     this.#placeShipRandomly(2);
@@ -230,7 +234,7 @@ export class GameBoard {
 
     this.shipDataList = [];
 
-    this.populateWithRandomShips();
+    this.#populateWithRandomShips();
   }
 }
 
@@ -241,6 +245,3 @@ class BoardSquare {
     this.squareCoordinates;
   }
 }
-
-let board = new GameBoard();
-board.resetBoard();
