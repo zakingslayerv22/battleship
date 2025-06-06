@@ -224,7 +224,7 @@ export class DomController {
     );
   }
 
-  resetGame() {
+  initializeGame() {
     this.humanPlayer.gameboard.resetBoard();
     this.#updateBoardDisplay("human");
 
@@ -243,7 +243,7 @@ export class DomController {
   }
 
   #handleRandomizeButtonClicks = () => {
-    this.resetGame();
+    this.initializeGame();
     this.startGameButton.disabled = false;
   };
 
@@ -256,7 +256,7 @@ export class DomController {
   };
 
   #handleResetButtonClicks = (event) => {
-    this.resetGame();
+    this.initializeGame();
 
     event.target.disabled = true;
     this.randomizeButton.disabled = false;
