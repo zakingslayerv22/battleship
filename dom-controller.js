@@ -15,13 +15,13 @@ export class DomController {
     this.randomizeButton = document.querySelector(".randomize-ships");
     this.randomizeButton.addEventListener(
       "click",
-      this.handleRandomizeButtonClicks
+      this.#handleRandomizeButtonClicks
     );
 
     this.startGameButton = document.querySelector(".start-game");
     this.startGameButton.addEventListener(
       "click",
-      this.handleStartButtonClicks
+      this.#handleStartButtonClicks
     );
 
     this.resetGameButton = document.querySelector(".reset-game");
@@ -29,7 +29,7 @@ export class DomController {
     this.game = new Game(this.humanPlayer, this.computerPlayer);
   }
 
-  renderBoard(playerObject, boardContainer) {
+  #renderBoard(playerObject, boardContainer) {
     playerObject.gameboard.board.forEach((row, rowIndex) => {
       row.forEach((col, colIndex) => {
         const gridCell = document.createElement("div");
@@ -84,7 +84,7 @@ export class DomController {
     });
   }
 
-  renderShips(player, playerObject, className) {
+  #renderShips(player, playerObject, className) {
     const allBoardCells = this.#getBoardCells(player, ".grid-item");
 
     const allShipsCoordinatesArray = this.#getAllShipCoordinates(playerObject);
@@ -96,7 +96,7 @@ export class DomController {
     );
   }
 
-  renderMissedAttacks(player, playerObject) {
+  #renderMissedAttacks(player, playerObject) {
     const allBoardCells = this.#getBoardCells(player, ".grid-item");
 
     const allMissedAttacksCoordinates = playerObject.gameboard.missedAttacks;
@@ -109,7 +109,7 @@ export class DomController {
     );
   }
 
-  getHitShipsCoordinates(playerObject) {
+  #getHitShipsCoordinates(playerObject) {
     const hitShipsCoodinates = [];
 
     playerObject.gameboard.board.forEach((row) => {
@@ -122,10 +122,10 @@ export class DomController {
     return hitShipsCoodinates;
   }
 
-  renderShipsHits(player, playerObject) {
+  #renderShipsHits(player, playerObject) {
     const allBoardCells = this.#getBoardCells(player, "[class$='ship']");
 
-    const hitShipsCoordinatesArray = this.getHitShipsCoordinates(playerObject);
+    const hitShipsCoordinatesArray = this.#getHitShipsCoordinates(playerObject);
 
     this.#applyClassToMatchingCells(
       allBoardCells,
@@ -137,23 +137,19 @@ export class DomController {
   #handleHumanBoardUpdate() {
     const humanBoardContainer = this.#getBoardContainer("human");
     humanBoardContainer.textContent = "";
-    this.renderBoard(this.humanPlayer, humanBoardContainer);
-    this.renderShips("human", this.humanPlayer, "human-ship");
-    this.renderMissedAttacks("human", this.humanPlayer);
-    this.renderShipsHits("human", this.humanPlayer);
+    this.#renderBoard(this.humanPlayer, humanBoardContainer);
+    this.#renderShips("human", this.humanPlayer, "human-ship");
+    this.#renderMissedAttacks("human", this.humanPlayer);
+    this.#renderShipsHits("human", this.humanPlayer);
   }
 
   #handleComputerBoardUpdate() {
     const computerBoardContainer = this.#getBoardContainer("computer");
     computerBoardContainer.textContent = "";
-    this.renderBoard(this.computerPlayer, computerBoardContainer);
-    this.renderShips("computer", this.computerPlayer, "computer-ship");
-    this.renderMissedAttacks("computer", this.computerPlayer);
-    this.renderShipsHits("computer", this.computerPlayer);
-  }
-
-  disableHumanBoard() {
-    this.humanBoardContainer.classList.add("disabled-board");
+    this.#renderBoard(this.computerPlayer, computerBoardContainer);
+    this.#renderShips("computer", this.computerPlayer, "computer-ship");
+    this.#renderMissedAttacks("computer", this.computerPlayer);
+    this.#renderShipsHits("computer", this.computerPlayer);
   }
 
   #toggleBoardState(boardToEnable, boardToDisable) {
@@ -167,10 +163,10 @@ export class DomController {
     if (player === "human") this.#handleHumanBoardUpdate();
     if (player === "computer") this.#handleComputerBoardUpdate();
 
-    // this.renderBoard(playerObject, playerBoardContainer);
+    // this.#renderBoard(playerObject, playerBoardContainer);
   };
 
-  handleBoardClicks = (event) => {
+  #handleBoardClicks = (event) => {
     let xCoordinate = event.target.dataset.x;
     let yCoordinate = event.target.dataset.y;
 
@@ -218,13 +214,13 @@ export class DomController {
     }
   };
 
-  startGame() {
+  #startGame() {
     this.humanBoardContainer.classList.add("disabled-board");
-    this.boardContainer.addEventListener("click", this.handleBoardClicks);
+    this.boardContainer.addEventListener("click", this.#handleBoardClicks);
 
     this.resetGameButton.addEventListener(
       "click",
-      this.handleResetButtonClicks
+      this.#handleResetButtonClicks
     );
   }
 
@@ -235,7 +231,7 @@ export class DomController {
     this.computerPlayer.gameboard.resetBoard();
     this.#updateBoardDisplay("computer");
 
-    this.boardContainer.removeEventListener("click", this.handleBoardClicks);
+    this.boardContainer.removeEventListener("click", this.#handleBoardClicks);
 
     this.resetGameButton.disabled = true;
 
@@ -246,20 +242,20 @@ export class DomController {
     }
   }
 
-  handleRandomizeButtonClicks = () => {
+  #handleRandomizeButtonClicks = () => {
     this.resetGame();
     this.startGameButton.disabled = false;
   };
 
-  handleStartButtonClicks = (event) => {
+  #handleStartButtonClicks = (event) => {
     this.randomizeButton.disabled = true;
     event.target.disabled = true;
     this.resetGameButton.disabled = false;
 
-    this.startGame();
+    this.#startGame();
   };
 
-  handleResetButtonClicks = (event) => {
+  #handleResetButtonClicks = (event) => {
     this.resetGame();
 
     event.target.disabled = true;
