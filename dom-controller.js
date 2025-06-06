@@ -11,7 +11,7 @@ export class DomController {
     this.computerBoardContainer = this.#getBoardContainer("computer");
 
     this.announcementText =
-      "Randomize ships' placements and/or click the Start Game button to start new game.";
+      "Randomize ships' placements and/or click  on the Start Game button to start a new game.";
 
     this.announcementBoard = document.querySelector(".announcement-board");
     this.announcementBoard.textContent = this.announcementText;
